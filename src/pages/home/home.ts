@@ -128,9 +128,7 @@ export class HomePage {
                     //this.adaptiveCardHtml = elementHtml;
                     //document.getElementById("sample123").appendChild(renderedCard);
                   }, 10);
-                  setTimeout(() => {
-                    this.scrollToBottom(0);
-                  }, 300);
+                  this.scrollToBottom(300);
                 }
                 else {
                   console.warn('unknown Attachment of activity received');
@@ -146,9 +144,7 @@ export class HomePage {
                   timestamp: message.timestamp,
                   localTimestamp: message['localTimestamp']
                 });
-                setTimeout(() => {
-                  this.scrollToBottom(0);
-                }, 300);
+                this.scrollToBottom(300);
               }
             }
           }
@@ -166,9 +162,7 @@ export class HomePage {
         cards: null,
       });
 
-      setTimeout(() => {
-        this.scrollToBottom(0);
-      }, 300);
+      this.scrollToBottom(300);
 
       directLine.postActivity({
         from: { id: this.userName }, // required (from.name is optional)
@@ -217,10 +211,11 @@ export class HomePage {
   }
 
   scrollToBottom(delay: number): void {
-    try {
-      delay = delay ? delay : 0;
-      this.content.scrollToBottom(delay);
-    } catch (err) { }
+    setTimeout(() => {
+      try {
+        this.content.scrollToBottom(0);
+      } catch (err) { }
+    }, delay)
   }
 
   //+++++++++++++++++++++++++Text to Speech+++++++++++++++++++++++++//
