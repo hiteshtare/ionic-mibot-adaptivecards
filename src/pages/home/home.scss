@@ -1,3 +1,146 @@
 page-home {
 
+  //  Bot Conversation Section
+  .content-md {
+    background-color: #313131;
+  }
+
+  .chat_header {
+    color: #fff;
+    text-align: center;
+  }
+
+  .messages {
+    position: absolute;
+    width: calc(100% - 20px);
+  }
+
+  .message {
+    clear: both;
+    overflow: hidden;
+    transition: all 0.5s linear;
+    opacity: 0;
+    padding-top: 10px;
+  }
+
+  .text_wrapper {
+    background-color: #f4f4f4;
+  }
+
+  .text_wrapper::after,
+  .text_wrapper::before {
+    right: 100%;
+    border-right-color: #f4f4f4;
+  }
+
+  .text {
+    color: black;
+  }
+
+  .right .text_wrapper {
+    background-color: #f4f4f4;
+    //margin-right: 20px;
+    float: right;
+  }
+
+  .right .text_wrapper::after,
+  .right .text_wrapper::before {
+    left: 100%;
+    border-left-color: #c7eafc;
+  }
+
+  .right .text {
+    color: #4c4c4c;
+  }
+
+  .appeared {
+    opacity: 1;
+  }
+
+  .text_wrapper::after,
+  .text_wrapper:before {
+    top: 18px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .text_wrapper::after {
+    border-width: 13px;
+    margin-top: 0px;
+  }
+
+  .text_wrapper::before {
+    border-width: 15px;
+    margin-top: -2px;
+  }
+
+  .text_wrapper .text {
+    font-size: 18px;
+    font-weight: 300;
+  }
+
+  .user_message {
+    text-align: right;
+    padding: 10px;
+  }
+
+  .bot_message {
+    padding: 10px;
+  }
+
+  .bot_message .text_wrapper {
+    display: inline-block;
+    padding: 0px 20px 0px 20px;
+    border-radius: 0 30px 30px 30px;
+    max-width: 500px;
+  }
+
+  .user_message .text_wrapper {
+    display: inline-block;
+    padding: 0px 20px 0px 20px;
+    border-radius: 30px 0 30px 30px;
+    display: inline-block;
+    position: relative;
+    max-width: 500px;
+  }
+
+  .bot_message .image_wrapper {
+    position: relative;
+    width: 50px;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .dv_user_message {
+    display: -webkit-inline-box;
+  }
+
+  .user_message .image_wrapper {
+    padding-left: 10px;
+    display: inline-block;
+    position: relative;
+    width: 50px;
+    vertical-align: top;
+  }
+
+  .bot_img_size {
+    width: 40px;
+    height: 40px;
+  }
+
+  .bot_message .timestamp_wrapper {
+    color: #7E7E7E;
+    padding: 10px 0 0 50px;
+  }
+
+  .user_message .timestamp_wrapper {
+    color: #7E7E7E;
+    padding: 10px 50px 0px 0;
+  }
+
+  //  Bot Conversation Section
 }

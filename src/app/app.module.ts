@@ -10,6 +10,13 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
+import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
+
+import { HttpClientModule } from '@angular/common/http';
+
+import { AvatarModule } from 'ngx-avatar';
+import { MomentModule } from 'ngx-moment';
 
 @NgModule({
   declarations: [
@@ -21,6 +28,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    AvatarModule,// Module for generates avatar based on the information you have about the user
+    MomentModule,// Moment module for parse, validate, manipulate, and display dates and times in JavaScript.
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -34,7 +44,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    TextToSpeech,
+    SpeechRecognition,
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }

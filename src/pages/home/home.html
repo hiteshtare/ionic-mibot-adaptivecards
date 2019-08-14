@@ -1,17 +1,70 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>ChatBot</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content>
+  <div class="messages" id="messagesContent">
+    <ng-container #messageContainer *ngFor="let message of messages">
+      <!-- User Message -->
+      <div *ngIf="message.from === userName" class="user_message">
+        <div class="text_wrapper">
+          <div class="text">
+            <p>{{message.text}}</p>
+          </div>
+          <div *ngIf="message.contentType == 'adaptive'" [innerHTML]="adaptiveCardHtml" class="adaptive">
+          </div>
+          <div *ngIf="message.cards">
+            <button ion-button outline round *ngFor="let card of message.cards" (click)="sendMessage(card.value)">
+              {{card.title}}
+            </button>
+          </div>
+        </div>
+        <div class="image_wrapper">
+          <ngx-avatar [name]="userName"></ngx-avatar>
+        </div>
+        <div class="timestamp_wrapper">
+          {{message.timestamp | amCalendar}}
+        </div>
+      </div>
+      <!-- User Message -->
+      <!-- Bot Message -->
+      <div *ngIf="message.from !== userName" class="bot_message">
+        <div class="image_wrapper">
+          <img src="assets/imgs/ogeenee.png" class="bot_img_size" />
+        </div>
+        <div class="text_wrapper">
+          <div class="text">
+            <p>{{message.text}}</p>
+          </div>
+          <div *ngIf="message.contentType == 'adaptive' " [innerHTML]="adaptiveCardHtml" class="adaptive"></div>
+          <div *ngIf="message.cards">
+            <button ion-button outline round *ngFor="let card of message.cards" (click)="sendMessage(card.value)">
+              {{card.title}}
+            </button>
+          </div>
+        </div>
+        <div class="timestamp_wrapper">
+          {{message.timestamp | amCalendar}}
+        </div>
+      </div>
+      <!-- Bot Message -->
+    </ng-container>
+  </div>
 </ion-content>
+<!-- Bot Conversation Section -->
+
+<!-- User Input Section -->
+<ion-footer>
+  <ion-item>
+    <ion-input [(ngModel)]="finalText" type="text" placeholder="Enter your text..." (keyup.enter)="sendMessage()">
+    </ion-input>
+    <button ion-button clear large type="button" id="buttonO" [ngClass]="'send_message'" (click)="listenForSpeech()"
+      [color]="isRecording ? 'danger' : 'default'" item-right>
+      <ion-icon name="ios-mic"></ion-icon>
+    </button>
+  </ion-item>
+</ion-footer>
+<!-- User Input Section -->
+<!------------------------ Genee Notification and Insights -------------------------->
