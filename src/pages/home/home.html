@@ -67,7 +67,7 @@
 </ion-content>
 <!-- User Input Section -->
 <ion-footer>
-  <ion-item>
+  <ion-item class="item-input-ht">
     <ion-input [(ngModel)]="finalText" type="text" placeholder="Enter your text..." (keyup.enter)="sendMessage()">
     </ion-input>
     <button ion-button clear large type="button" id="buttonO" [ngClass]="'send_message'" (click)="listenForSpeech()"
