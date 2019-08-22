@@ -1,11 +1,21 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      About
-    </ion-title>
+  <ion-navbar [color]="isRecording ? 'danger' : 'primary'">
+    <ion-title>Speech Recognition</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <button ion-button full (click)="startListening()" *ngIf="!isRecording">Start Listening</button>
+  <button ion-button full (click)="stopListening()" *ngIf="isRecording">Stop Listening</button>
 
+  <ion-card>
+    <ion-card-header>This is what I understood...</ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let match of matches">
+          {{match}}
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

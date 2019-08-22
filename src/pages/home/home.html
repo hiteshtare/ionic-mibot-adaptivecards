@@ -1,9 +1,18 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>ChatBot</ion-title>
+    <ion-title>ChatBot {{tabValue}}</ion-title>
   </ion-navbar>
 </ion-header>
 
+<!-- 
+<ng-container *ngIf="tabValue === 'My Assistant'">
+        <ion-content>
+  <h5 style="color: white;font-size: xx-large;text-align: center;">Not Assistant</h5>
+    </ion-content>
+</ng-container> -->
+
+<!------------------------ Genee Notification and Insights -------------------------->
+<!-- <ng-container *ngIf="tabValue !== 'My Assistant'"> -->
 <ion-content>
   <div class="messages" id="messagesContent">
     <ng-container #messageContainer *ngFor="let message of messages">
@@ -52,19 +61,20 @@
       <!-- Bot Message -->
     </ng-container>
   </div>
-</ion-content>
-<!-- Bot Conversation Section -->
+  <!-- Bot Conversation Section -->
 
-<!-- User Input Section -->
-<ion-footer>
-  <ion-item>
-    <ion-input [(ngModel)]="finalText" type="text" placeholder="Enter your text..." (keyup.enter)="sendMessage()">
-    </ion-input>
-    <button ion-button clear large type="button" id="buttonO" [ngClass]="'send_message'" (click)="listenForSpeech()"
-      [color]="isRecording ? 'danger' : 'default'" item-right>
-      <ion-icon name="ios-mic"></ion-icon>
-    </button>
-  </ion-item>
-</ion-footer>
-<!-- User Input Section -->
-<!------------------------ Genee Notification and Insights -------------------------->
+  <!-- User Input Section -->
+  <ion-footer>
+    <ion-item>
+      <ion-input [(ngModel)]="finalText" type="text" placeholder="Enter your text..." (keyup.enter)="sendMessage()">
+      </ion-input>
+      <button ion-button clear large type="button" id="buttonO" [ngClass]="'send_message'" (click)="listenForSpeech()"
+        [color]="isRecording ? 'danger' : 'default'" item-right>
+        <ion-icon name="ios-mic"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-footer>
+  <!-- User Input Section -->
+  <!------------------------ Genee Notification and Insights -------------------------->
+</ion-content>
+<!-- </ng-container> -->

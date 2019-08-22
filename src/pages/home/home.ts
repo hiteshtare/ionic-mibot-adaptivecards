@@ -1,11 +1,11 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { NavController, Content, Platform } from 'ionic-angular';
 
 import { DirectLine } from 'botframework-directlinejs';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
-import { SpeechRecognition, SpeechRecognitionListeningOptionsAndroid } from '@ionic-native/speech-recognition/ngx';
+import { SpeechRecognition, SpeechRecognitionListeningOptionsAndroid } from '@ionic-native/speech-recognition';
 
 var directLine = new DirectLine({
   token: 'A3nuyvhrQIc.cwA.Qxc.KV-l8cW2GMsp2ai6mA3u2OWwTNLG-0A837SReesbIxk',
@@ -51,15 +51,21 @@ export class HomePage {
   isRecording: boolean;
   stack = [];
 
-  @ViewChild(Content) content: Content;
+  @ViewChildren(Content) content: QueryList<Content>;
   auth: ConversationResult = new ConversationResult();
   greetingMessage: string;
   userName = 'Hitesh Tare';
+  tabValue = 'My Assistant';
+  botContent: Content;
   //+++++++++++++++++++++++++Bot Conversation Section+++++++++++++++++++++++++//
 
   constructor(public navCtrl: NavController, private sanitizer: DomSanitizer,
     private tts: TextToSpeech, private speech: SpeechRecognition, private platform: Platform) {
     this.messages = [];
+
+    setTimeout(() => {
+      this.tabValue = 'My Assistant';
+    }, 1000);
   }
 
   ngOnInit() {
@@ -79,6 +85,13 @@ export class HomePage {
           this.getPermission();
       })
     }
+  }
+
+
+  public ngAfterViewInit(): void {
+    this.content.changes.subscribe((comps: QueryList<Content>) => {
+      this.botContent = comps.last;
+    });
   }
 
   transform(style) {
@@ -213,7 +226,7 @@ export class HomePage {
   scrollToBottom(delay: number): void {
     setTimeout(() => {
       try {
-        this.content.scrollToBottom(0);
+        this.botContent.scrollToBottom(0);
       } catch (err) { }
     }, delay)
   }

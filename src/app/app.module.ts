@@ -11,7 +11,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
-import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
+import { SpeechRecognition } from '@ionic-native/speech-recognition';
 
 import { HttpClientModule } from '@angular/common/http';
 
