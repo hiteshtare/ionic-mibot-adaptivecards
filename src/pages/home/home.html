@@ -14,6 +14,7 @@
 <!------------------------ Genee Notification and Insights -------------------------->
 <!-- <ng-container *ngIf="tabValue !== 'My Assistant'"> -->
 <ion-content>
+  <!-- Bot Conversation Section -->
   <div class="messages" id="messagesContent">
     <ng-container #messageContainer *ngFor="let message of messages">
       <!-- User Message -->
@@ -62,19 +63,18 @@
     </ng-container>
   </div>
   <!-- Bot Conversation Section -->
-
-  <!-- User Input Section -->
-  <ion-footer>
-    <ion-item>
-      <ion-input [(ngModel)]="finalText" type="text" placeholder="Enter your text..." (keyup.enter)="sendMessage()">
-      </ion-input>
-      <button ion-button clear large type="button" id="buttonO" [ngClass]="'send_message'" (click)="listenForSpeech()"
-        [color]="isRecording ? 'danger' : 'default'" item-right>
-        <ion-icon name="ios-mic"></ion-icon>
-      </button>
-    </ion-item>
-  </ion-footer>
-  <!-- User Input Section -->
   <!------------------------ Genee Notification and Insights -------------------------->
 </ion-content>
+<!-- User Input Section -->
+<ion-footer>
+  <ion-item>
+    <ion-input [(ngModel)]="finalText" type="text" placeholder="Enter your text..." (keyup.enter)="sendMessage()">
+    </ion-input>
+    <button ion-button clear large type="button" id="buttonO" [ngClass]="'send_message'" (click)="listenForSpeech()"
+      [color]="isRecording ? 'danger' : 'default'" item-right>
+      <ion-icon name="ios-mic"></ion-icon>
+    </button>
+  </ion-item>
+</ion-footer>
+<!-- User Input Section -->
 <!-- </ng-container> -->
