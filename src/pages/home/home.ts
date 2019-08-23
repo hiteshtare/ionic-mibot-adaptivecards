@@ -4,7 +4,7 @@ import { NavController, Content, Platform } from 'ionic-angular';
 import { DirectLine } from 'botframework-directlinejs';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
+import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { SpeechRecognition, SpeechRecognitionListeningOptionsAndroid } from '@ionic-native/speech-recognition';
 
 var directLine = new DirectLine({
@@ -233,54 +233,39 @@ export class HomePage {
 
   //+++++++++++++++++++++++++Text to Speech+++++++++++++++++++++++++//
   sayText(text: string) {
-    // try {
-    //    this.tts.speak({
-    //     text: "Hi! I'm here to assist you. You could choose one of these to start off with. Book a meeting or delete a meeting",
-    //     locale: "en-US",
-    //     rate: 0.9
-    //   });
-    // }
-    // catch (e) {
-    //   console.log(e);
-    // }
-    try {
-      if (text) {
-        this.stack.push(text);
-      }
-      let currentMessage;
-      if (this.stack.length > 0 && !this.isSpeaking) {
-        currentMessage = this.stack[0];
-        this.isSpeaking = true;
-        this.tts.speak({
-          text: currentMessage,
-          locale: "en-CA",
-          //rate: 0.9
-        })
-          .then(() => {
-            console.log("this is for stack value-------" + this.stack.length)
-            console.log("CHECK THIS-------" + this.isSpeaking);
-            if (this.stack.length == 1) {
-              if ((text == "Alright! I'm here to assist you if you need anything. Bye for now!") || (text == "See you soon! Good day ahead") || (text == "Alright! If you need any assistance, you know where to find me... Bye for now!")) {
-                this.isRecording = false;
-              } else {
-                setTimeout(() => {
-                  var button = document.getElementById("buttonO");
-                  button.click();
-                }, 30);
-              }
-            }
-            this.stack.shift();
-            this.isSpeaking = false;
-            if (this.stack.length > 0) {
-              this.sayText(null);
-            }
-          })
-          .catch((reason: any) => console.log(reason));
-      }
-    } catch (e) {
-      console.log(e);
+    if (text) {
+      this.stack.push(text);
     }
-
+    let currentMessage;
+    if (this.stack.length > 0 && !this.isSpeaking) {
+      currentMessage = this.stack[0];
+      this.isSpeaking = true;
+      this.tts.speak({
+        text: currentMessage,
+        locale: "en-CA",
+        rate: 1.2
+      })
+        .then(() => {
+          console.log("this is for stack value-------" + this.stack.length)
+          console.log("CHECK THIS-------" + this.isSpeaking);
+          if (this.stack.length == 1) {
+            if ((text == "Alright! I'm here to assist you if you need anything. Bye for now!") || (text == "See you soon! Good day ahead") || (text == "Alright! If you need any assistance, you know where to find me... Bye for now!")) {
+              this.isRecording = false;
+            } else {
+              setTimeout(() => {
+                var button = document.getElementById("buttonO");
+                button.click();
+              }, 30);
+            }
+          }
+          this.stack.shift();
+          this.isSpeaking = false;
+          if (this.stack.length > 0) {
+            this.sayText(null);
+          }
+        })
+        .catch((reason: any) => console.log(reason));
+    }
   }
   //+++++++++++++++++++++++++Text to Speech+++++++++++++++++++++++++//
 
