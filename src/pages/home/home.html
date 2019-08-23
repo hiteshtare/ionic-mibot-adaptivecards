@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>ChatBot {{tabValue}}</ion-title>
+    <ion-title class="tab-title">Genee - KPI Assitant</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="clearChat()">
+        <ion-icon name="md-trash"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -70,8 +75,12 @@
   <ion-item class="item-input-ht">
     <ion-input [(ngModel)]="finalText" type="text" placeholder="Enter your text..." (keyup.enter)="sendMessage()">
     </ion-input>
-    <button ion-button clear large type="button" id="buttonO" [ngClass]="'send_message'" (click)="listenForSpeech()"
-      [color]="isRecording ? 'danger' : 'default'" item-right>
+    <button *ngIf="finalText" ion-button clear large type="button" id="btnSendText" style="cursor: pointer"
+      (click)="sendMessage()" item-right>
+      <ion-icon name="md-send"></ion-icon>
+    </button>
+    <button *ngIf="!finalText" ion-button clear large type="button" id="btnListen" style="cursor: pointer"
+      (click)="listenForSpeech()" [color]="isRecording ? 'danger' : 'default'" item-right>
       <ion-icon name="ios-mic"></ion-icon>
     </button>
   </ion-item>

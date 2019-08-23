@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { Component, QueryList, ViewChildren } from '@angular/core';
 import { NavController, Content, Platform } from 'ionic-angular';
 
 import { DirectLine } from 'botframework-directlinejs';
@@ -113,10 +113,13 @@ export class HomePage {
                 console.log(attachments);
 
                 if (attachments.contentType == 'application/vnd.microsoft.card.adaptive') {
-                  console.log("adaptive cards")
+                  let msg_Text = null;
+                  if (attachments["content"]["speak"]) {
+                    msg_Text = attachments["content"]["speak"].replace(/[**]/g, "");
+                  }
                   this.messages.push({
                     from: message.from.id,
-                    text: null,
+                    text: msg_Text,
                     hasAttachments: true,
                     contentType: 'adaptive',
                     cards: null,
@@ -137,10 +140,11 @@ export class HomePage {
                     adaptiveCard.parse(card);
                     let renderedCard = adaptiveCard.render();
                     var elementHtml = renderedCard.outerHTML;
-                    this.adaptiveCardHtml = this.sanitizer.bypassSecurityTrustHtml(elementHtml)
+                    this.adaptiveCardHtml = this.sanitizer.bypassSecurityTrustHtml(elementHtml);
                     //this.adaptiveCardHtml = elementHtml;
                     //document.getElementById("sample123").appendChild(renderedCard);
                   }, 10);
+                  this.sayText(msg_Text);
                   this.scrollToBottom(300);
                 }
                 else {
@@ -149,14 +153,15 @@ export class HomePage {
                 }
               }
               else {
-                this.sayText(message['text'].replace(/[**]/g, ""));
+                const msg_Text = message['text'].replace(/[**]/g, "");
                 this.messages.push({
                   from: message.from.id,
-                  text: message['text'].replace(/[**]/g, ""), //Replace \n with <b> for web version
+                  text: msg_Text, //Replace \n with <b> for web version
                   cards: null,
                   timestamp: message.timestamp,
                   localTimestamp: message['localTimestamp']
                 });
+                this.sayText(msg_Text);
                 this.scrollToBottom(300);
               }
             }
@@ -288,4 +293,11 @@ export class HomePage {
   }
   //+++++++++++++++++++++++++Speech Recognition+++++++++++++++++++++++++//
 
+  clearChat() {
+    this.messages = [];
+  }
+
+  stopConversation() {
+    directLine.end();
+  }
 }
